@@ -15,13 +15,14 @@ root.render(
         Layout: {
           colorBgBase: '#f00',
         },
-        Button: {
-          colorPrimary: '#fff',
-        },
+        // Button: {
+        //   colorPrimary: '#fff',
+        // },
       },
       token: {
         primary: '#121212',
         secondary: '#2C2D2E',
+        thirdColor: '#FE6C6C',
       },
     }}
   >

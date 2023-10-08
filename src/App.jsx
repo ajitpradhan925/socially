@@ -1,7 +1,9 @@
-import { Button, theme } from 'antd';
+import { theme } from 'antd';
 import useToken from 'antd/es/theme/useToken';
 import React from 'react';
-import { InputField, PublicLayout } from './components';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
+// import { InputField, PublicLayout } from './components';
 // import useToken from 'antd/es/theme/useToken';
 
 function App() {
@@ -10,10 +12,7 @@ function App() {
 
   console.log({ token: token[1].primary });
   return (
-    <PublicLayout>
-      <Button style={{ width: '30%', backgroundColor: token[1].primary }}>Primary Button</Button>
-      <InputField placeholder="Enter your name" />
-    </PublicLayout>
+    <RouterProvider router={router} />
   );
 }
 

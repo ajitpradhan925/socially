@@ -5,11 +5,11 @@ import React from 'react';
 import useToken from 'antd/es/theme/useToken';
 import { Link } from 'react-router-dom';
 import { InputField, PublicLayout, CustomButton } from '../components';
-import loginIllustration from '../assets/login_illustration.svg';
+import loginIllustration from '../assets/register_illustration.svg';
 
 const { Text, Title } = Typography;
 
-export default function Login() {
+export default function Register() {
   const token = useToken();
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -21,19 +21,24 @@ export default function Login() {
   return (
     <PublicLayout>
       <Row style={{ flexDirection: 'column' }} align="middle">
-
-        <img src={loginIllustration} alt="Login Illustration" style={{ width: '170px', height: '130px' }} />
-        <Title level={3}>Welcome Back</Title>
+        <img src={loginIllustration} alt="Register Illustration" style={{ width: '170px', height: '130px' }} />
+        <Title level={3}>Create new account!</Title>
         <Text>Let’s join us :)</Text>
       </Row>
       <Row justify="center" style={{ marginTop: '2%', flexDirection: 'column' }} align="middle">
         <Form
-          name="login"
+          name="register"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           style={{ width: '40%' }}
         >
+          <Form.Item
+            name="name"
+            rules={[{ required: true }]}
+          >
+            <InputField placeholder="Enter name..." name="name" label="Name" showLabel="true" />
+          </Form.Item>
           <Form.Item
             name="email"
             rules={[
@@ -57,14 +62,14 @@ export default function Login() {
           </Form.Item>
           <Form.Item>
             <CustomButton>
-              Log in
+              Register
             </CustomButton>
           </Form.Item>
         </Form>
         <Row justify="start">
-          <Text>Don’t have account?</Text>
-          <Link to="register">
-            <Text style={{ color: token[1].thirdColor, marginLeft: 5 }}>Register now</Text>
+          <Text>Already have account?</Text>
+          <Link to="login">
+            <Text style={{ color: token[1].thirdColor, marginLeft: 5, fontWeight: 'bold' }}>Log In</Text>
           </Link>
         </Row>
       </Row>
