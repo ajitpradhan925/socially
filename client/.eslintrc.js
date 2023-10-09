@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: 'airbnb-base',
+  extends: 'airbnb',
   overrides: [
     {
       env: {
@@ -22,8 +22,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    rules: {
-      'linebreak-style': 0,
-    },
+    'linebreak-style': 0,
   },
 };

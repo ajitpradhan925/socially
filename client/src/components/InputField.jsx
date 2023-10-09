@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 export default function InputField({ ...props }) {
   const {
-    placeholder, type, name, onChange, value, label, showLabel,
+    placeholder, type, name, onChange, value, label, showLabel, style,
   } = props;
   const token = useToken();
 
@@ -19,7 +19,14 @@ export default function InputField({ ...props }) {
   return (
     <>
       {showLabel && (<Text>{`${label}: `}</Text>)}
-      <Input type={type} name={name} onChange={onChange} value={value} placeholder={placeholder} />
+      <Input
+        type={type}
+        name={name}
+        onChange={onChange}
+        value={value}
+        placeholder={placeholder}
+        style={style}
+      />
     </>
   );
 }
@@ -32,6 +39,7 @@ InputField.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   showLabel: PropTypes.bool,
+  style: false,
 };
 
 InputField.defaultProps = {
@@ -42,4 +50,5 @@ InputField.defaultProps = {
   value: '',
   label: '',
   showLabel: false,
+  style: {},
 };

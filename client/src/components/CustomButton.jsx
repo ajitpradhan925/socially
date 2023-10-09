@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import useToken from 'antd/es/theme/useToken';
 
 export default function CustomButton({ ...props }) {
-  const { children } = props;
+  const { children, style } = props;
   const token = useToken();
 
   const Button = styled(AntButton)`
-        margin-top: 2%;
+        // margin-top: 2%;
         width: 100%;
         background-color: ${token[1].thirdColor};
         height: 3rem;
@@ -20,7 +20,7 @@ export default function CustomButton({ ...props }) {
         }
     `;
   return (
-    <Button status="warning" htmlType="submit">
+    <Button status="warning" htmlType="submit" style={style}>
       { children }
     </Button>
   );
@@ -28,8 +28,10 @@ export default function CustomButton({ ...props }) {
 
 CustomButton.propTypes = {
   children: PropTypes.node,
+  style: false,
 };
 
 CustomButton.defaultProps = {
   children: (<span />),
+  style: {},
 };

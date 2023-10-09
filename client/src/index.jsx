@@ -12,9 +12,9 @@ root.render(
     theme={{
       algorithm: theme.darkAlgorithm,
       components: {
-        Layout: {
-          colorBgBase: '#f00',
-        },
+        // Layout: {
+        //   colorBgBase: '#f00',
+        // },
         // Button: {
         //   colorPrimary: '#fff',
         // },
