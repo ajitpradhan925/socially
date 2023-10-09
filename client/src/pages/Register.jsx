@@ -68,7 +68,7 @@ export default function Register() {
         </Form>
         <Row justify="start">
           <Text>Already have account?</Text>
-          <Link to="login">
+          <Link to="/login">
             <Text style={{ color: token[1].thirdColor, marginLeft: 5, fontWeight: 'bold' }}>Log In</Text>
           </Link>
         </Row>

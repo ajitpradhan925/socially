@@ -2,8 +2,11 @@ import React from 'react';
 import { Col, Row } from 'antd';
 import PrivateLayout from '../components/PrivateLayout';
 import { FeedCard, PostCard } from '../components';
+import useAuth from '../hooks/useAuth';
 
 export default function Home() {
+  const { isLoggedIn, token } = useAuth();
+  console.log({ isLoggedIn, token });
   return (
     <PrivateLayout>
       <Row style={{

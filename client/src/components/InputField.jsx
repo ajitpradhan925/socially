@@ -8,6 +8,7 @@ const { Text } = Typography;
 
 export default function InputField({ ...props }) {
   const {
+    // eslint-disable-next-line react/prop-types
     placeholder, type, name, onChange, value, label, showLabel, style,
   } = props;
   const token = useToken();
@@ -20,12 +21,14 @@ export default function InputField({ ...props }) {
     <>
       {showLabel && (<Text>{`${label}: `}</Text>)}
       <Input
+        key={Math.floor(Math.random() * 1000)}
         type={type}
         name={name}
         onChange={onChange}
         value={value}
         placeholder={placeholder}
         style={style}
+        autoFocus="autoFocus"
       />
     </>
   );
@@ -39,7 +42,7 @@ InputField.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   showLabel: PropTypes.bool,
-  style: false,
+  // style: false,
 };
 
 InputField.defaultProps = {
@@ -50,5 +53,5 @@ InputField.defaultProps = {
   value: '',
   label: '',
   showLabel: false,
-  style: {},
+  // style: {},
 };

@@ -3,16 +3,31 @@ import {
 } from 'antd';
 import React from 'react';
 import useToken from 'antd/es/theme/useToken';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { InputField, PublicLayout, CustomButton } from '../components';
 import loginIllustration from '../assets/login_illustration.svg';
+import useAuth from '../hooks/useAuth';
 
 const { Text, Title } = Typography;
 
 export default function Login() {
   const token = useToken();
+  const navigate = useNavigate();
+
+  function handleSuccess() {
+    // Handle success, e.g., redirect to a new page or display a success message
+    console.log('Authentication successful!');
+    navigate('/');
+  }
+
+  const {
+    loading, error, loginUser,
+  } = useAuth(handleSuccess); // Pass the success callback
+
+  console.log({ loading, error });
   const onFinish = (values) => {
     console.log('Success:', values);
+    loginUser(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -56,14 +71,14 @@ export default function Login() {
             <InputField placeholder="Enter password..." type="password" name="password" label="Password" showLabel="true" />
           </Form.Item>
           <Form.Item>
-            <CustomButton>
+            <CustomButton loading={loading}>
               Log in
             </CustomButton>
           </Form.Item>
         </Form>
         <Row justify="start">
           <Text>Don’t have account?</Text>
-          <Link to="register">
+          <Link to="/register">
             <Text style={{ color: token[1].thirdColor, marginLeft: 5 }}>Register now</Text>
           </Link>
         </Row>

@@ -36,7 +36,7 @@ export default function FeedCard() {
           <Title level={5} style={{ margin: 0, marginLeft: 10 }}>
             Ajit Pradhan
           </Title>
-          <Text style={{ textAlign: 'right' }}>Posted 3 months ago....</Text>
+          <Text>Posted 3 months ago....</Text>
         </Col>
       </Row>
       <Row>

@@ -1,18 +1,32 @@
-import { theme } from 'antd';
-import useToken from 'antd/es/theme/useToken';
 import React from 'react';
-import { RouterProvider } from 'react-router-dom';
-import router from './router';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import useAuth from './hooks/useAuth';
+import { Home, Login, Register } from './pages';
+import PrivateRoutes from './router/PrivateRoutes';
+// import PublicRoutes from './router/PublicRoutes';
+// import router from './router';
 // import { InputField, PublicLayout } from './components';
 // import useToken from 'antd/es/theme/useToken';
 
 function App() {
-  console.log({ theme });
-  const token = useToken();
+  // const { isLoggedIn } = useAuth();
 
-  console.log({ token: token[1].primary });
   return (
-    <RouterProvider router={router} />
+    <Router>
+      <Routes>
+        <Route element={<PrivateRoutes />} path="/">
+          <Route element={<Home />} path="/" index />
+        </Route>
+        {/* <Route element={<PublicRoutes />} path="/">
+
+        </Route> */}
+
+        <Route element={<Login />} index path="/login" />
+        <Route element={<Register />} path="/register" />
+
+        {/* <Route element={<Login />} path="/home" /> */}
+      </Routes>
+    </Router>
   );
 }
 
