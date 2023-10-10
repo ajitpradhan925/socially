@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import useToken from 'antd/es/theme/useToken';
 
 export default function CustomButton({ ...props }) {
-  const { children, style, loader } = props;
+  const {
+    children, style, loader, onClick,
+  } = props;
   const token = useToken();
 
   const Button = styled(AntButton)`
@@ -20,7 +22,7 @@ export default function CustomButton({ ...props }) {
         }
     `;
   return (
-    <Button status="warning" htmlType="submit" style={style}>
+    <Button status="warning" htmlType="submit" style={style} onClick={onClick}>
       { !loader ? children : (<Spin style={{ marginRight: 5 }} />) }
     </Button>
   );
@@ -30,10 +32,12 @@ CustomButton.propTypes = {
   children: PropTypes.node,
   style: false,
   loader: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 CustomButton.defaultProps = {
   children: (<span />),
   style: {},
   loader: false,
+  onClick: () => {},
 };

@@ -5,19 +5,13 @@ import {
 import React from 'react';
 // import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
+import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import profilePhoto from '../assets/profile.svg';
-import blog from '../assets/blog.png';
+import { SERVER_BASE_URL } from '../api/apiConfig';
 
 const { Title, Text } = Typography;
-
-export default function FeedCard() {
-  //   const token = useToken();
-  //   const Row = styled(AntRow)`
-  //     background-color: ${token[1].secondary};
-  //     width: 100%;
-  //     height: 450px;
-  //     border-radius: 40px;
-  //   `;
+const BASE_URL = `${SERVER_BASE_URL}/uploads`;
+export default function FeedCard({ post }) {
   return (
     <Card>
       <Row justify="space-between">
@@ -34,24 +28,51 @@ export default function FeedCard() {
             style={{ width: '40px', height: '40px' }}
           />
           <Title level={5} style={{ margin: 0, marginLeft: 10 }}>
-            Ajit Pradhan
+            {post.user.name}
           </Title>
-          <Text>Posted 3 months ago....</Text>
         </Col>
+        <Text>Posted 3 months ago....</Text>
       </Row>
       <Row>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </Text>
+        <Title level={2}>
+          {post.description}
+        </Title>
         <Col span={24} style={{ marginTop: 20 }}>
-          <img src={blog} alt="Profile" />
+          <img
+            style={{
+              width: '100%',
+              maxHeight: '500px',
+              borderRadius: 10,
+              objectFit: 'contain',
+            }}
+            src={`${BASE_URL}/${post.image.fileName}`}
+            alt="Profile"
+          />
         </Col>
+      </Row>
+      <Row style={{ display: 'flex', marginTop: '2%' }}>
+        {/* <HeartOutlined /> */}
+        <span style={{ marginRight: '10px' }}>
+          <HeartOutlined />
+          <Text style={{ marginLeft: 5 }}>
+            {post.likeCount}
+          </Text>
+        </span>
+        <span>
+          <CommentOutlined />
+          <Text style={{ marginLeft: 5 }}>
+            {post.comments.length}
+          </Text>
+        </span>
       </Row>
     </Card>
   );
 }
+
+FeedCard.propTypes = {
+  post: false,
+};
+
+FeedCard.defaultProps = {
+  post: {},
+};

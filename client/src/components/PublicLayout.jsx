@@ -6,10 +6,8 @@ import useToken from 'antd/es/theme/useToken';
 
 export default function PublicLayout({ children }) {
   const token = useToken();
-
-  console.log({ token: token[1].primary });
-
   const Layout = styled(AntLayout)`
+        min-height: 100vh;
         height: 100vh;
         width: 100%;
         background-color: ${token[1].primary};

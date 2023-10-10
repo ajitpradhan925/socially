@@ -12,7 +12,7 @@ export default function PrivateLayout({ children }) {
   console.log({ token: token[1].primary });
 
   const Layout = styled(AntLayout)`
-        // height: 100vh;
+        min-height: 100vh;
         width: 100%;
         background-color: ${token[1].primary};
         padding-bottom: 5%;

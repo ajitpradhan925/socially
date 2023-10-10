@@ -67,11 +67,12 @@ function useAuth(successCallback) {
     }
   }
 
-  const logout = () => {
+  const logout = (navigate) => {
     // Remove the token from state and local storage
     setToken(null);
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     setIsLoggedIn(false);
+    navigate('/login');
   };
 
   return {

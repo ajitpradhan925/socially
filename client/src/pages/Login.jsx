@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InputField, PublicLayout, CustomButton } from '../components';
 import loginIllustration from '../assets/login_illustration.svg';
 import useAuth from '../hooks/useAuth';
+import { showSuccessMessage } from '../config';
 
 const { Text, Title } = Typography;
 
@@ -15,9 +16,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   function handleSuccess() {
-    // Handle success, e.g., redirect to a new page or display a success message
-    console.log('Authentication successful!');
     navigate('/');
+    showSuccessMessage('Successfully logged in...');
   }
 
   const {
@@ -26,7 +26,6 @@ export default function Login() {
 
   console.log({ loading, error });
   const onFinish = (values) => {
-    console.log('Success:', values);
     loginUser(values);
   };
   const onFinishFailed = (errorInfo) => {

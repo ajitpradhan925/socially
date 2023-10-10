@@ -1,12 +1,13 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import PrivateLayout from '../components/PrivateLayout';
 import { FeedCard, PostCard } from '../components';
-import useAuth from '../hooks/useAuth';
+import usePost from '../hooks/usePost';
 
 export default function Home() {
-  const { isLoggedIn, token } = useAuth();
-  console.log({ isLoggedIn, token });
+  const { posts, isLoading, addPost } = usePost();
+
   return (
     <PrivateLayout>
       <Row style={{
@@ -14,12 +15,18 @@ export default function Home() {
       }}
       >
         <Col>
-          <PostCard />
+          <PostCard addPost={addPost} />
         </Col>
-        <Col style={{ marginTop: '5%' }}>
-          <FeedCard />
-        </Col>
+
+        {isLoading ? (<Spin size="large" style={{ marginTop: '25%' }} />)
+          : posts.map((post) => (
+            <Col style={{ marginTop: '5%' }}>
+              <FeedCard key={post._id} post={post} />
+            </Col>
+          ))}
+
       </Row>
+
     </PrivateLayout>
   );
 }
