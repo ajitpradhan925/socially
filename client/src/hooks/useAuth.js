@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { loginUserApi, registerUserApi } from '../api';
+import { getUserProfile } from '../api/authApi';
 // Define a key for the local storage item
 const LOCAL_STORAGE_KEY = 'authToken';
 
@@ -11,18 +12,39 @@ function useAuth(successCallback) {
 
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
 
+  const fetchUser = async () => {
+    try {
+      // Make a GET request to retrieve all posts
+      const postsResponse = await getUserProfile(token);
+      if (postsResponse.status !== 200) {
+        throw new Error('Failed to retrieve posts.');
+      }
+
+      setUser(postsResponse.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchUser();
+    }
+  }, [token]);
   useEffect(() => {
     // Retrieve the token from local storage on component mount
     const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY);
-    console.log({ storedToken });
     if (storedToken) {
       setToken(storedToken);
       setIsLoggedIn(true);
     }
   }, []);
-
-  console.log({ token, isLoggedIn });
 
   async function registerUser(username, password) {
     setLoading(true);
@@ -83,6 +105,7 @@ function useAuth(successCallback) {
     logout,
     token,
     isLoggedIn,
+    user,
   };
 }
 

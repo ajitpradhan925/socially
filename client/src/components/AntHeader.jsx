@@ -26,7 +26,7 @@ const items = [
 
 export default function AntHeader() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   // const [isDarkMode, setIsDarkMode] = useState(false);
 
   const value = useContext(ThemeContext);
@@ -34,6 +34,8 @@ export default function AntHeader() {
   const onClick = ({ key }) => {
     if (key === '2') {
       logout(navigate);
+    } else {
+      navigate('/profile');
     }
   };
 
@@ -69,7 +71,7 @@ export default function AntHeader() {
             }}
           >
             <Space>
-              <Title level={5} style={{ margin: 0, marginLeft: 10, color: '#fff' }}>Ajit Pradhan</Title>
+              <Title level={5} style={{ margin: 0, marginLeft: 10, color: '#fff' }}>{user.name}</Title>
               <DownOutlined style={{ marginLeft: 5, fontWeight: 'bold', color: '#fff' }} />
             </Space>
           </Dropdown>

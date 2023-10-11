@@ -22,19 +22,30 @@ async function registerUserApi(username, password) {
 
 async function loginUserApi(body) {
   try {
-    console.log({ API_BASE_URL });
     const response = await axios.post(`${API_BASE_URL}/login`, body);
 
     if (response.status === 200) {
       // Login successful
       return response;
     }
-    console.log({ response });
     throw new Error('Login failed. Please check your credentials.');
   } catch (error) {
-    console.log({ error });
     throw new Error('Login failed. Please check your credentials.');
   }
 }
 
-export { registerUserApi, loginUserApi };
+async function getUserProfile(token) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/me`, { headers: { Authorization: `Bearer ${token}` } });
+
+    if (response.status === 200) {
+      // Login successful
+      return response;
+    }
+    throw new Error('Login failed. Please check your credentials.');
+  } catch (error) {
+    throw new Error('Login failed. Please check your credentials.');
+  }
+}
+
+export { registerUserApi, loginUserApi, getUserProfile };
