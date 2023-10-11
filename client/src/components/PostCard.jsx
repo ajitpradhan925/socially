@@ -1,23 +1,19 @@
 import {
-  Card as AntCard, Col, Row, Upload, Typography,
+  Card, Col, Row, Upload,
 } from 'antd';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 import { CameraOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import CustomButton from './CustomButton';
 import InputField from './InputField';
-// import usePost from '../hooks/usePost';
-const { Text } = Typography;
+import './style.css';
+import { showErrorMessage } from '../config';
 
 export default function PostCard({ addPost }) {
   const [postValue, setPostValue] = useState('');
-  const Card = styled(AntCard)`
-    width: 100%;
-    border-radius: 10px;
-  `;
-  const [fileList, setFileList] = useState();
+  const [fileList, setFileList] = useState({});
 
   function onChangePostText(text) {
     setPostValue(text);
@@ -34,20 +30,17 @@ export default function PostCard({ addPost }) {
       formData.append('description', postValue);
       formData.append('title', postValue);
       addPost(formData);
+    } else {
+      showErrorMessage('Please attach the image');
     }
   };
 
   return (
-    <Card>
+    <Card style={{ paddingBottom: 20 }}>
       <Row
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}
+        className="row-container"
       >
-        <Col style={{ width: '75%', borderRadius: '10px', height: '60px' }}>
+        <Col style={{ width: '80%', borderRadius: '10px', height: '60px' }}>
           <InputField
             value={postValue}
             onChange={(event) => onChangePostText(event.target.value)}
@@ -69,23 +62,11 @@ export default function PostCard({ addPost }) {
         </Col>
         <CustomButton
           onClick={onPost}
-          style={{ width: '10%', marginLeft: '5%', marginTop: '1%' }}
+          style={{ width: '15%', marginLeft: '5%', marginTop: '1%' }}
         >
           Post
         </CustomButton>
       </Row>
-
-      {fileList?.file?.name ? (
-        <Text style={{ marginLeft: '5%' }}>
-          {fileList.file.name}
-        </Text>
-      ) : null}
-
-      {/* {thumbURL ? (
-        <Row>
-          <img src={fileList.file.thumbURL} alt="Upload post" />
-        </Row>
-      ) : null } */}
     </Card>
   );
 }

@@ -14,20 +14,9 @@ async function createAPostApi(body, token) {
 }
 
 async function getAllPosts(token) {
-  try {
-    console.log({ API_BASE_URL });
-    const response = await axios.get(`${API_BASE_URL}/post`, { headers: { Authorization: `Bearer ${token}` } });
+  const response = await axios.get(`${API_BASE_URL}/post`, { headers: { Authorization: `Bearer ${token}` } });
 
-    if (response.status === 200) {
-      // Login successful
-      return response;
-    }
-    console.log({ response });
-    throw new Error('Login failed. Please check your credentials.');
-  } catch (error) {
-    console.log({ error });
-    throw new Error('Login failed. Please check your credentials.');
-  }
+  return response;
 }
 
 export { createAPostApi, getAllPosts };

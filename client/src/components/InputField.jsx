@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Input as AntInput, Typography } from 'antd';
+import { Input, Typography } from 'antd';
 import PropTypes from 'prop-types';
-import useToken from 'antd/es/theme/useToken';
+import './style.css';
 
 const { Text } = Typography;
 
@@ -11,16 +10,12 @@ export default function InputField({ ...props }) {
     // eslint-disable-next-line react/prop-types
     placeholder, type, name, onChange, value, label, showLabel, style,
   } = props;
-  const token = useToken();
 
-  const Input = styled(AntInput)`
-        background-color: ${token[1].secondary};
-        padding: 1rem;
-    `;
   return (
     <>
       {showLabel && (<Text>{`${label}: `}</Text>)}
       <Input
+        className="input"
         key={Math.floor(Math.random() * 1000)}
         type={type}
         name={name}

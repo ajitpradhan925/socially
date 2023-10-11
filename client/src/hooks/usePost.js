@@ -1,7 +1,8 @@
 // usePostManagement.js
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createAPostApi, getAllPosts } from '../api/postApi';
-import { showSuccessMessage } from '../config';
+import { showErrorMessage, showSuccessMessage } from '../config';
 // import axiosInstance from './apiConfig';
 import useAuth from './useAuth';
 
@@ -10,6 +11,7 @@ function usePost() {
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
   const { token } = useAuth();
+  const navigate = useNavigate();
 
   const fetchPosts = async () => {
     if (!isLoading) setLoading(true);
@@ -22,6 +24,10 @@ function usePost() {
 
       setPosts(postsResponse.data);
     } catch (err) {
+      showErrorMessage(err.response.data.message);
+      if (err.response.status === 401) {
+        navigate('/login');
+      }
       setError(err.message);
     } finally {
       setTimeout(() => {
@@ -52,6 +58,10 @@ function usePost() {
     //   setPosts(response.data);
     } catch (err) {
       setError(err.message);
+      showErrorMessage(err.response.data.message);
+      if (err.response.status === 401) {
+        navigate('/login');
+      }
     } finally {
       setLoading(false);
       fetchPosts();

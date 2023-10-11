@@ -1,0 +1,17 @@
+/* 
+Login
+*/
+.login-row {
+    display: 'flex';
+    flex-direction: 'column';
+}
+
+
+/** Home */
+.homeRow {
+    display: 'flex';
+    flex-direction: 'column';
+    margin-left: '20%';
+    margin-right: '20%';
+    margin-top: '2%';
+}

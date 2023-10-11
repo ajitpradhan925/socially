@@ -1,10 +1,7 @@
 import {
   Row, Card, Typography, Col,
 } from 'antd';
-// import useToken from 'antd/es/theme/useToken';
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import styled from 'styled-components';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import profilePhoto from '../assets/profile.svg';
 import { SERVER_BASE_URL } from '../api/apiConfig';
@@ -12,6 +9,23 @@ import { SERVER_BASE_URL } from '../api/apiConfig';
 const { Title, Text } = Typography;
 const BASE_URL = `${SERVER_BASE_URL}/uploads`;
 export default function FeedCard({ post }) {
+  function getTime() {
+    const postDate = new Date(post.createdAt);
+    const currentDate = new Date();
+    const timeDifference = currentDate - postDate;
+    const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hoursAgo = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (daysAgo === 0) {
+      if (hoursAgo > 0) {
+        return `${hoursAgo} ${hoursAgo === 1 ? 'hour' : 'hours'} ago...`;
+      }
+      return ' just now...';
+    }
+
+    return `${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago...`;
+  }
+
   return (
     <Card>
       <Row justify="space-between">
@@ -31,7 +45,10 @@ export default function FeedCard({ post }) {
             {post.user.name}
           </Title>
         </Col>
-        <Text>Posted 3 months ago....</Text>
+        <Text>
+          Posted
+          {getTime()}
+        </Text>
       </Row>
       <Row>
         <Title level={2}>

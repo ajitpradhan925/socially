@@ -1,21 +1,11 @@
-import { Layout as AntLayout } from 'antd';
+import { Layout } from 'antd';
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import useToken from 'antd/es/theme/useToken';
+import './style.css';
 
 export default function PublicLayout({ children }) {
-  const token = useToken();
-  const Layout = styled(AntLayout)`
-        min-height: 100vh;
-        height: 100vh;
-        width: 100%;
-        background-color: ${token[1].primary};
-        padding: 5%;
-    `;
-
   return (
-    <Layout>
+    <Layout className="global-layout">
       { children }
     </Layout>
   );

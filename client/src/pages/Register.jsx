@@ -3,19 +3,31 @@ import {
 } from 'antd';
 import React from 'react';
 import useToken from 'antd/es/theme/useToken';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { InputField, PublicLayout, CustomButton } from '../components';
 import loginIllustration from '../assets/register_illustration.svg';
+import useAuth from '../hooks/useAuth';
+import { showErrorMessage, showSuccessMessage } from '../config';
 
 const { Text, Title } = Typography;
 
 export default function Register() {
   const token = useToken();
+  const navigate = useNavigate();
+
+  function handleSuccess() {
+    navigate('/login');
+    showSuccessMessage('Successfully registered, please sign in...');
+  }
+
+  const { registerUser } = useAuth(handleSuccess);
   const onFinish = (values) => {
     console.log('Success:', values);
+    registerUser(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    showErrorMessage(errorInfo);
   };
 
   return (

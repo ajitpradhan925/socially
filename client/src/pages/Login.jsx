@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InputField, PublicLayout, CustomButton } from '../components';
 import loginIllustration from '../assets/login_illustration.svg';
 import useAuth from '../hooks/useAuth';
-import { showSuccessMessage } from '../config';
+import { showErrorMessage, showSuccessMessage } from '../config';
 
 const { Text, Title } = Typography;
 
@@ -30,11 +30,12 @@ export default function Login() {
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    showErrorMessage(errorInfo);
   };
 
   return (
     <PublicLayout>
-      <Row style={{ flexDirection: 'column' }} align="middle">
+      <Row style={{ display: 'flex', flexDirection: 'column' }} align="middle">
 
         <img src={loginIllustration} alt="Login Illustration" style={{ width: '170px', height: '130px' }} />
         <Title level={3}>Welcome Back</Title>

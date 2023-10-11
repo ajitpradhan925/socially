@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import { loginUserApi, registerUserApi } from '../api';
 import { getUserProfile } from '../api/authApi';
-// Define a key for the local storage item
-const LOCAL_STORAGE_KEY = 'authToken';
+import { showErrorMessage, showSuccessMessage } from '../config';
+
+const LOCAL_STORAGE_KEY = 'authTokenSocially';
 
 function useAuth(successCallback) {
   const [loading, setLoading] = useState(false);
@@ -46,13 +47,13 @@ function useAuth(successCallback) {
     }
   }, []);
 
-  async function registerUser(username, password) {
+  async function registerUser(body) {
     setLoading(true);
     setError(null);
 
     try {
       // Simulate an API call for user registration
-      await registerUserApi(username, password);
+      await registerUserApi(body);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -72,7 +73,6 @@ function useAuth(successCallback) {
     setError(null);
 
     try {
-      // Simulate an API call for user login
       const response = await loginUserApi(body);
       setLoading(false);
       const newToken = response.data.token;
@@ -84,6 +84,7 @@ function useAuth(successCallback) {
         successCallback();
       }
     } catch (err) {
+      showErrorMessage(err.response.data.msg);
       setError(err.message);
       setLoading(false);
     }
@@ -95,6 +96,7 @@ function useAuth(successCallback) {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     setIsLoggedIn(false);
     navigate('/login');
+    showSuccessMessage('Successfully logged out');
   };
 
   return {
