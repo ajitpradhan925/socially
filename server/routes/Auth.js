@@ -1,15 +1,21 @@
 const router = require('express').Router();
 const { login, register, getProfile } = require('../controllers/Auth');
 const jwtVerify = require('../middleware/jwtMiddleware');
+const HttpStatusError = require('../utils/error-class');
 
 router.post('/login', async (req, res) => {
   try {
     console.log({ body1: req.body });
     const response = await login(req.body);
+    console.log({ response });
     res.json(response);
   } catch (error) {
-    console.log(error);
-    res.json(error);
+    if (error instanceof HttpStatusError) {
+      res.status(error.statusCode).send({ msg: error.message });
+    } else {
+      console.log(error);
+      res.status(500).send({ msg: 'Internal Server Error' });
+    }
   }
 });
 
