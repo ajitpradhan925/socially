@@ -45,6 +45,7 @@ export default function PostCard({ addPost }) {
             value={postValue}
             onChange={(event) => onChangePostText(event.target.value)}
             placeholder="Post Something..."
+            style={{ paddingRight: '10%' }}
           />
           <Upload
             maxCount={1}
