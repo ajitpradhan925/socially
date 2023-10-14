@@ -14,7 +14,6 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => cb(null, `${Date.now()}${path.extname(file.originalname)}`),
 });
-
 const upload = multer({ storage, fileFilter: (req, file, cb) => cb(null, ['image/jpeg', 'image/png', 'image/gif'].includes(file.mimetype)) });
 
 router.post('/', [jwtVerify, upload.single('image')], async (req, res) => {

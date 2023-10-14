@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const AttachmentSchema = new mongoose.Schema(
   {
@@ -6,13 +6,13 @@ const AttachmentSchema = new mongoose.Schema(
     filePath: {
       type: String,
     },
-    mimetype: String
+    mimetype: String,
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Attachment = mongoose.model("Attachment", AttachmentSchema);
+const Attachment = mongoose.model('Attachment', AttachmentSchema);
 
 module.exports = Attachment;

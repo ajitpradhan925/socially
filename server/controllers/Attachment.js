@@ -7,12 +7,10 @@ const addAttachment = async (file) => {
     filePath: destination,
     mimetype,
   };
-  return await Attachment.create(attachment);
+  const createResult = await Attachment.create(attachment);
+  return createResult;
 };
-
-const getAttachmentsByPostId = async (postId) => await Attachment.find({ postId });
 
 module.exports = {
   addAttachment,
-  getAttachmentsByPostId,
 };

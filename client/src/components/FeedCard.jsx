@@ -1,8 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import {
   Row, Card, Typography, Col,
 } from 'antd';
 import React from 'react';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 import profilePhoto from '../assets/profile.svg';
 import { SERVER_BASE_URL } from '../api/apiConfig';
 
@@ -87,7 +89,7 @@ export default function FeedCard({ post }) {
 }
 
 FeedCard.propTypes = {
-  post: false,
+  post: PropTypes.object,
 };
 
 FeedCard.defaultProps = {

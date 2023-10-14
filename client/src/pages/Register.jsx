@@ -49,7 +49,7 @@ export default function Register() {
             name="name"
             rules={[{ required: true }]}
           >
-            <InputField placeholder="Enter name..." name="name" label="Name" showLabel="true" />
+            <InputField placeholder="Enter name..." name="name" label="Name" showLabel />
           </Form.Item>
           <Form.Item
             name="email"
@@ -64,13 +64,13 @@ export default function Register() {
               },
             ]}
           >
-            <InputField placeholder="Enter email..." name="email" label="Email" showLabel="true" />
+            <InputField placeholder="Enter email..." name="email" label="Email" showLabel />
           </Form.Item>
           <Form.Item
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <InputField placeholder="Enter password..." type="password" name="password" label="Password" showLabel="true" />
+            <InputField placeholder="Enter password..." type="password" name="password" label="Password" showLabel />
           </Form.Item>
           <Form.Item>
             <CustomButton>

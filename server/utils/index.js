@@ -1,7 +1,6 @@
 const {
   comparePassword, generateToken, hashPassword, verifyToken,
 } = require('./auth-utils');
-const base64ToFormData = require('./post-utiles');
 const connectDB = require('./db-connect');
 
 module.exports = {
@@ -10,5 +9,4 @@ module.exports = {
   hashPassword,
   verifyToken,
   connectDB,
-  base64ToFormData,
 };

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { hashPassword } = require("../utils");
+const mongoose = require('mongoose');
+const { hashPassword } = require('../utils');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -16,13 +16,13 @@ const UserSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre('save', async function () {
   this.password = await hashPassword(this.password);
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

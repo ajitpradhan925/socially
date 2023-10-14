@@ -1,12 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Col, Row, Spin } from 'antd';
+import {
+  Col, Row, Spin, Typography,
+} from 'antd';
 import PrivateLayout from '../components/PrivateLayout';
 import { FeedCard, PostCard } from '../components';
 import usePost from '../hooks/usePost';
 
 export default function Home() {
   const { posts, isLoading, addPost } = usePost();
+  const { Text } = Typography;
 
   return (
     <PrivateLayout>
@@ -18,13 +21,18 @@ export default function Home() {
           <PostCard addPost={addPost} />
         </Col>
 
-        {isLoading ? (<Spin size="large" style={{ marginTop: '25%' }} />)
+        {isLoading && posts.length ? (<Spin size="large" style={{ marginTop: '25%' }} />)
           : posts.map((post) => (
-            <Col style={{ marginTop: '5%' }}>
-              <FeedCard key={post._id} post={post} />
+            <Col key={post._id} style={{ marginTop: '5%' }}>
+              <FeedCard post={post} />
             </Col>
           ))}
 
+        {!isLoading && !posts.length ? (
+          <Text>
+            No posts available
+          </Text>
+        ) : null}
       </Row>
 
     </PrivateLayout>

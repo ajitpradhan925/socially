@@ -3,9 +3,7 @@
 import { useEffect, useState } from 'react';
 import { loginUserApi, registerUserApi } from '../api';
 import { getUserProfile } from '../api/authApi';
-import { showErrorMessage, showSuccessMessage } from '../config';
-
-const LOCAL_STORAGE_KEY = 'authTokenSocially';
+import { LOCAL_STORAGE_KEY, showErrorMessage } from '../config';
 
 function useAuth(successCallback) {
   const [loading, setLoading] = useState(false);
@@ -63,6 +61,8 @@ function useAuth(successCallback) {
         successCallback();
       }
     } catch (err) {
+      if (err.response) showErrorMessage(err.response.data.msg);
+      else showErrorMessage(err.message);
       setError(err.message);
       setLoading(false);
     }
@@ -84,7 +84,10 @@ function useAuth(successCallback) {
         successCallback();
       }
     } catch (err) {
-      showErrorMessage(err.response.data.msg);
+      console.log(err.message);
+      if (err.response) showErrorMessage(err.response.data.msg);
+      else showErrorMessage(err.message);
+
       setError(err.message);
       setLoading(false);
     }
@@ -96,7 +99,7 @@ function useAuth(successCallback) {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     setIsLoggedIn(false);
     navigate('/login');
-    showSuccessMessage('Successfully logged out');
+    // showSuccessMessage('Successfully logged out');
   };
 
   return {

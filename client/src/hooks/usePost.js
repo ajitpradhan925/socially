@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createAPostApi, getAllPosts } from '../api/postApi';
-import { showErrorMessage, showSuccessMessage } from '../config';
+import { LOCAL_STORAGE_KEY, showErrorMessage, showSuccessMessage } from '../config';
 // import axiosInstance from './apiConfig';
 import useAuth from './useAuth';
 
@@ -24,9 +24,16 @@ function usePost() {
 
       setPosts(postsResponse.data);
     } catch (err) {
-      showErrorMessage(err.response.data.message);
+      // console.log(err);
+      if (err.response) {
+        showErrorMessage(err.response.data.message);
+      } else {
+        // showErrorMessage(err.message);
+      }
+
       if (err.response.status === 401) {
         navigate('/login');
+        localStorage.clear(LOCAL_STORAGE_KEY);
       }
       setError(err.message);
     } finally {
@@ -60,6 +67,7 @@ function usePost() {
       setError(err.message);
       showErrorMessage(err.response.data.message);
       if (err.response.status === 401) {
+        localStorage.clear(LOCAL_STORAGE_KEY);
         navigate('/login');
       }
     } finally {

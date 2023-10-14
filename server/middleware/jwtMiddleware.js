@@ -4,7 +4,7 @@ const { verifyToken } = require('../utils');
 const jwtVerify = (req, res, next) => {
   const bearerToken = req.headers.authorization;
   if (!bearerToken) {
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(401).json({ message: 'You are not authenticated.' });
   }
 
   const token = bearerToken.split('Bearer')[1].trim();

@@ -4,17 +4,8 @@ import axios from 'axios'; // Import Axios
 import { API_BASE_URL } from './apiConfig'; // Import your API configuration
 
 async function registerUserApi(body) {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/register`, body);
-
-    if (response.status === 200) {
-      // Registration successful
-      return response;
-    }
-    throw new Error('Registration failed. Please try again.');
-  } catch (error) {
-    throw new Error('Registration failed. Please try again.');
-  }
+  const response = await axios.post(`${API_BASE_URL}/register`, body);
+  return response;
 }
 
 async function loginUserApi(body) {

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Button, Spin } from 'antd';
 import PropTypes from 'prop-types';
@@ -17,7 +18,7 @@ export default function CustomButton({ ...props }) {
 
 CustomButton.propTypes = {
   children: PropTypes.node,
-  style: false,
+  style: PropTypes.object,
   loader: PropTypes.bool,
   onClick: PropTypes.func,
 };

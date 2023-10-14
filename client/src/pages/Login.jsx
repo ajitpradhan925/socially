@@ -62,13 +62,13 @@ export default function Login() {
               },
             ]}
           >
-            <InputField placeholder="Enter email..." name="email" label="Email" showLabel="true" />
+            <InputField placeholder="Enter email..." name="email" label="Email" showLabel />
           </Form.Item>
           <Form.Item
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <InputField placeholder="Enter password..." type="password" name="password" label="Password" showLabel="true" />
+            <InputField placeholder="Enter password..." type="password" name="password" label="Password" showLabel />
           </Form.Item>
           <Form.Item>
             <CustomButton loading={loading}>
