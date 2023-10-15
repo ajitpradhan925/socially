@@ -17,7 +17,7 @@ function useAuth(successCallback) {
     try {
       // Make a GET request to retrieve all posts
       const postsResponse = await getUserProfile(token);
-      if (postsResponse.status !== 200) {
+      if (postsResponse && postsResponse.status !== 200) {
         throw new Error('Failed to retrieve posts.');
       }
 

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { Post } = require('../models');
 const { addAttachment } = require('./Attachment');
 
@@ -22,27 +23,31 @@ const getPosts = async () => {
   return postRespone;
 };
 
-const likePost = async (postId) => {
-  const updateRespone = await Post.findByIdAndUpdate(postId, {
-    likeCount: 1,
-  });
-  return updateRespone;
+const likePost = async (postId, userId) => {
+  const updateResponse = await Post.findById(postId);
+  const userIdObj = new mongoose.Types.ObjectId(userId);
+  console.log({ userIdObj });
+  if (updateResponse.likes.includes(userIdObj)) {
+    updateResponse.likes = updateResponse.likes.filter((uId) => uId.toString() !== userId);
+  } else {
+    updateResponse.likes.push(userIdObj);
+  }
+
+  console.log({ updateResponse: updateResponse.likes, userIdObj });
+  const updateRes = await updateResponse.save();
+  return updateRes;
 };
 
-// const commentPost = async (body, userId, file) => {
-//   try {
-//     const postRespone = await Post.find({})
-//       .populate("user", ["-password"])
-//       .populate("image");
-//     return postRespone;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const commentPost = async (body, userId) => {
+  const updateResponse = await Post.findById(body.postId);
+  updateResponse.comments.push({ text: body.text, userId });
+  await updateResponse.save();
+  return updateResponse;
+};
 
 module.exports = {
   addPost,
   getPosts,
   likePost,
-//   commentPost,
+  commentPost,
 };

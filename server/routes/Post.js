@@ -2,7 +2,9 @@ const router = require('express').Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { addPost, getPosts } = require('../controllers/Post');
+const {
+  addPost, getPosts, likePost, commentPost,
+} = require('../controllers/Post');
 const jwtVerify = require('../middleware/jwtMiddleware');
 const HttpStatusError = require('../utils/error-class');
 
@@ -32,6 +34,34 @@ router.post('/', [jwtVerify, upload.single('image')], async (req, res) => {
 router.get('/', jwtVerify, async (req, res) => {
   try {
     const response = await getPosts();
+    res.json(response);
+  } catch (error) {
+    if (error instanceof HttpStatusError) {
+      res.status(error.statusCode).send({ msg: error.message });
+    } else {
+      console.log(error);
+      res.status(500).send({ msg: 'Internal Server Error' });
+    }
+  }
+});
+
+router.post('/like', jwtVerify, async (req, res) => {
+  try {
+    const response = await likePost(req.body.postId, req.user.userId);
+    res.json(response);
+  } catch (error) {
+    if (error instanceof HttpStatusError) {
+      res.status(error.statusCode).send({ msg: error.message });
+    } else {
+      console.log(error);
+      res.status(500).send({ msg: 'Internal Server Error' });
+    }
+  }
+});
+
+router.post('/comment', jwtVerify, async (req, res) => {
+  try {
+    const response = await commentPost(req.body, req.user.userId);
     res.json(response);
   } catch (error) {
     if (error instanceof HttpStatusError) {

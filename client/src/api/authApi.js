@@ -17,7 +17,7 @@ async function getUserProfile(token) {
   try {
     const response = await axios.get(`${API_BASE_URL}/me`, { headers: { Authorization: `Bearer ${token}` } });
 
-    if (response.status === 200) {
+    if (response && response.status === 200) {
       // Login successful
       return response;
     }

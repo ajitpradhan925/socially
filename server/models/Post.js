@@ -18,10 +18,10 @@ const PostSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'Attachment',
     },
-    likeCount: {
-      type: Number,
-      default: 0,
-    },
+    likes: [{
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    }],
     comments: [
       {
         userId: mongoose.Schema.ObjectId,

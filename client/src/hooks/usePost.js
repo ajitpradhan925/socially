@@ -18,7 +18,7 @@ function usePost() {
     try {
       // Make a GET request to retrieve all posts
       const postsResponse = await getAllPosts(token);
-      if (postsResponse.status !== 200) {
+      if (postsResponse && postsResponse.status !== 200) {
         throw new Error('Failed to retrieve posts.');
       }
 
@@ -28,10 +28,10 @@ function usePost() {
       if (err.response) {
         showErrorMessage(err.response.data.message);
       } else {
-        // showErrorMessage(err.message);
+        showErrorMessage(err.message);
       }
 
-      if (err.response.status === 401) {
+      if (err && err.response && err.response.status === 401) {
         navigate('/login');
         localStorage.clear(LOCAL_STORAGE_KEY);
       }
